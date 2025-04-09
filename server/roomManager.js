@@ -32,9 +32,9 @@ const roomManager = {
         }
 
         console.log(`creating solo room for user ${socket.id}`);
+
         //create room
         let roomID = this.generateRoomId('solo');
-
         this.rooms[roomID] = {
             players: [],
             gameStart: true,
@@ -44,7 +44,7 @@ const roomManager = {
         // assign to player
         this.players[socket.id].room = roomID;
         this.players[socket.id].inGame = true;
-        socket.emit('startSoloGame', 'startSoloGame'); //signal client side to start solo game
+        socket.emit('startSoloGame', roomID); //signal client side to start solo game
     },
 
     removeRoom(roomID){

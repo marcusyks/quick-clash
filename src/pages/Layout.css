@@ -1,0 +1,13 @@
+.div_layout {
+    height: 100vh;
+}
+
+.layout_mainbody{
+    position: absolute;
+    top: var(--navbar-height);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--background-color);
+    color: var(--main-text-color);
+}

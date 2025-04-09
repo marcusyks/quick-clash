@@ -1,0 +1,33 @@
+.div_navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    background-color: var(--navbar-background-color);
+    color: var(--main-text-color);
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    box-shadow: 0 2px 32px var(--button-background-color);
+    z-index: 10;
+}
+
+.a_navbar_1{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 16px;
+    color: var(--main-text-color);
+}
+.a_navbar_1:hover{
+    color: var(--button-background-color);
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+}
+
+.a_navbar_1 > img{
+    width: calc(var(--navbar-height) - 20px);
+    height: calc(var(--navbar-height) - 20px);
+    padding: 0 8px;
+}

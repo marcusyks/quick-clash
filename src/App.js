@@ -1,27 +1,19 @@
 import HomePage from './pages/HomePage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import { getSocket } from './lib/socket';
-import { useEffect } from 'react';
+import Layout from './pages/Layout';
+import ErrorPage from './pages/ErrorPage';
+import GamePage from './pages/GamePage';
 
 function App() {
-
-  useEffect(() => {
-    const socket = getSocket();
-
-    socket.on('connect', () => {
-      console.log('[App] Socket connected:', socket.id);
-    });
-
-    return () => {
-      socket.off('connect'); // clean up
-    };
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<HomePage/>}/>
+          <Route path='game/:roomID' element={<GamePage/>}/>
+          <Route path="*" element={<ErrorPage/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
