@@ -1,5 +1,7 @@
 // Room Manager
 // Manages the creation of rooms, deletion of rooms
+const crypto = require("crypto");
+
 
 const roomManager = {
     players : {},
@@ -14,6 +16,11 @@ const roomManager = {
                 break;
             case 'startVSRoom':
                 break;
+            case 'leaveRoom':
+                this.removeRoom(this.players[socket.id].room); // remove room but NOT player
+                this.players[socket.id].inGame = false;
+                console.log(`User ${socket.id} left room ${this.players[socket.id].room}`);
+                break;
             default:
                 break;
         }
@@ -22,7 +29,8 @@ const roomManager = {
     //ROOM MANAGEMENT
 
     generateRoomId(type){
-        return `${type}-${Date.now()}` //create timestamp room id
+        let uuid = crypto.randomUUID(); //generate a uuid
+        return `${type}_${uuid}` //create timestamp room id
     },
 
     createSoloRoom(socket){

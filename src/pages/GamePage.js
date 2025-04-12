@@ -1,23 +1,15 @@
 import './GamePage.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import { socketConnected } from '../lib/socket';
-import { useEffect } from 'react';
-
+import { useParams } from 'react-router-dom';
+import useLeaveGameOnExit from '../lib/useLeaveGameOnExit';
 
 function GamePage(){
     const { roomID } = useParams();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        //prevents direct game access
-        if (!socketConnected()) {
-          navigate('/');
-        }
-      }, [navigate]);
+    useLeaveGameOnExit();
 
     return(
         <div className='div_gamepage'>
-            Room ID: {roomID}
+            <div className='div_gamecontent'>hello</div>
+            <div className='div_roomid'>Room ID: {roomID}</div>
         </div>
     )
 }
