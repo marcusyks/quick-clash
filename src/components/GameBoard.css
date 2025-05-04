@@ -1,0 +1,93 @@
+.div_gameboard{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.div_gameCanvas{
+    width: 70%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gameCanvas_cell{
+    display: flex;
+    height: 180px;
+    width: 180px;
+    background: var(--cell-background-color);
+    border: 2px solid var(--background-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .gameCanvas_cell{
+        height: 95px;
+        width: 95px;
+    }
+
+    .div_gameCanvas{
+        width: 70%;
+        height: 40%;
+    }
+}
+
+.gameCanvas_cell:hover{
+    background: var(--cell-hover-color);
+    transition: 0.3s;
+}
+
+.div_turnDiv{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 20px;
+    font-weight: bolder;
+}
+
+.span_playerTurn{
+    background-color: var(--cell-background-color);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    z-index: 50;
+}
+
+.modal_wrapper {
+    color: var(--main-text-color);
+    background: var(--cell-background-color);
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.modal_buttons{
+    display: flex;
+    justify-content: space-around;
+}

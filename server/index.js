@@ -1,8 +1,9 @@
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-const { gameManager } = require("./gameManager.js");
-const { roomManager } = require("./roomManager.js");
+const RoomManager = require("./roomManager.js");
+const GameManager = require("./gameManager.js");
+const DataStorage = require("./dataStorage.js");
 var cors = require("cors");
 
 const app = express();
@@ -22,6 +23,9 @@ const io = new Server(httpServer, {
   }
 });
 
+const dataStorage = new DataStorage();
+const roomManager = new RoomManager(dataStorage);
+const gameManager = new GameManager(dataStorage, io);
 
 io.on("connection", (socket) => {
   console.log(`User ${socket.id} connected!`);
@@ -29,9 +33,10 @@ io.on("connection", (socket) => {
   roomManager.addPlayer(socket);
 
   // Listen for messages from the client
-  // socket.on("gameMessage", (data) => {
-  //   gameManager.handleGameAction(socket, data);
-  // });
+  socket.on("gameMessage", (data) => {
+    gameManager.handleGameAction(socket, data);
+  });
+
   socket.on("roomMessage", (data) => {
     roomManager.handleRoomMessage(socket, data);
   });
@@ -39,7 +44,7 @@ io.on("connection", (socket) => {
   // Handles disconnection
   socket.on('disconnect', () => {
     console.log(`User ${socket.id} disconnected!`);
-    roomManager.removePlayer(socket); // Remove player from the game state
+    roomManager.deletePlayer(socket); // Remove player from the game state
   });
 });
 

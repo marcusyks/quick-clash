@@ -1,5 +1,4 @@
 import { io } from 'socket.io-client';
-import { setupRoomSocketListeners } from './listeners';
 
 let socket = null;
 
@@ -21,17 +20,16 @@ export const socketConnected = () => {
     return true;
 }
 
-export const sendRoomMessage = (msg, navigate) => {
+export const sendRoomMessage = (msg) => {
     if(msg && socket){
         // Send commands to servers
         socket.emit('roomMessage', msg);
     }
-
-    setupRoomSocketListeners(socket, navigate);
 }
 
-export const sendGameMessage = (msg) => {
-    if(msg && socket){
-        socket.emit('gameMessage', msg);
+export const sendGameMessage = (msg, add) => {
+    if (msg && add && socket){
+        const data = {msg, add}
+        socket.emit('gameMessage', data);
     }
 }

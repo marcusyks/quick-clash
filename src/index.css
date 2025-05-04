@@ -24,8 +24,13 @@ code {
   --button-hover-background-color: rgb(230, 62, 62);
   --button-text-color: white;
 
-  --navbar-background-color: #1d1d1d;
+  --error-message-color: red;
+  --success-message-color: green;
 
+  --navbar-background-color: #1d1d1d;
   --navbar-height: 50px;
+
+  --cell-background-color: #4d4d4d;
+  --cell-hover-color: rgb(116, 36, 36);
 }
 

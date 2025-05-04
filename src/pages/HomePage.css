@@ -6,3 +6,17 @@
     align-items: center;
     gap:1rem;
 }
+
+.div_inGame{
+    color: var(--success-message-color);
+}
+
+.homepage_h1{
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .homepage_h1{
+        font-size: 2.5rem;
+    }
+}

@@ -5,16 +5,9 @@
     gap:1rem;
 }
 
-.div_gamecontent{
-    height: 100%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.div_roomid{
-    display:flex;
-    justify-content: flex-start;
-    align-items:center;
-    padding: 4px;
+.div_forceStopMessage{
+    color: var(--error-message-color);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 20px;
 }
