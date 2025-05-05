@@ -5,6 +5,7 @@ const RoomManager = require("./roomManager.js");
 const GameManager = require("./gameManager.js");
 const DataStorage = require("./dataStorage.js");
 var cors = require("cors");
+const path = require('path');
 
 const app = express();
 
@@ -21,6 +22,12 @@ const io = new Server(httpServer, {
     origin: process.env.FRONTEND_API,
     credentials: true
   }
+});
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 const dataStorage = new DataStorage();
