@@ -10,6 +10,7 @@ const app = express();
 
 app.use(cors({
   origin: process.env.FRONTEND_API,
+  credentials: true
 }))
 
 const httpServer = createServer(app);
