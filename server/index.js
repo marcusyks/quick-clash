@@ -5,22 +5,12 @@ const RoomManager = require("./roomManager.js");
 const GameManager = require("./gameManager.js");
 const DataStorage = require("./dataStorage.js");
 var cors = require("cors");
-const path = require('path');
 
 const app = express();
 
 app.use(cors({
   origin: process.env.FRONTEND_API,
-  credentials: true
 }))
-
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, '../src/dist')));
-
-// Handle requests by serving index.html for all routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/dist', 'index.html'));
-});
 
 const httpServer = createServer(app);
 const port = process.env.PORT;
