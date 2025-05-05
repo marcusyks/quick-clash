@@ -17,12 +17,11 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 #server
-/server/.env
-/server/.env.development.local
 /server/run.sh
