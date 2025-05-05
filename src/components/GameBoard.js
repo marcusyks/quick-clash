@@ -88,7 +88,9 @@ const GameBoard = ({roomID}) => {
 
     const handleRestartGame = ()=> {
         sendGameMessage('restartGame', {roomID: roomID});
-        setNotify('Waiting for reply...')
+        if (notify !== 'opponentLeft'){ //If opponent left, we dont tell them
+            setNotify('Waiting for reply...');
+        }
     }
 
     return(
