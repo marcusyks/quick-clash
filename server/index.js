@@ -6,6 +6,7 @@ const GameManager = require("./gameManager.js");
 const DataStorage = require("./dataStorage.js");
 var cors = require("cors");
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 
