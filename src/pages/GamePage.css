@@ -7,7 +7,6 @@
 
 .div_forceStopMessage{
     color: var(--error-message-color);
-    font-size: 1.5rem;
     text-align: center;
     margin-top: 20px;
 }
