@@ -34,9 +34,9 @@ const GameBoard = ({roomID}) => {
             const cells = document.querySelectorAll('.gameCanvas_cell');
             cells.forEach((cell, index) => {
                 if (board[index] === 0) {
-                    cell.innerHTML = `<img src=${cross_icon}/>`;
+                    cell.innerHTML = `<img src="${cross_icon}" alt="cross"/>`;
                 } else if (board[index] === 1) {
-                    cell.innerHTML = `<img src=${circle_icon}/>`;
+                    cell.innerHTML = `<img src="${circle_icon}" alt="circle"/>`;
                 } else{
                     cell.innerHTML = ``;
                 }
