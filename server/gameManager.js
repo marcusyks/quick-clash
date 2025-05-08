@@ -112,14 +112,15 @@ class GameManager{
         const room = this.dataStorage.getRoom(roomID);
         const board = room.board;
 
-        if (board.every(cell => cell !== -1)){
-            return 1; //Draw
-        }
         for (const combination of this.winning_combinations) {
             const [a, b, c] = combination;
             if (board[a] === turn && board[b] === turn && board[c] === turn) {
                 return 0; // Player Wins
             }
+        }
+
+        if (board.every(cell => cell !== -1)){
+            return 1; //Draw
         }
     }
 }
