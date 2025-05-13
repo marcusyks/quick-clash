@@ -21,6 +21,7 @@ const GameBoard = ({roomID}) => {
         if (!socketConnected()){
             navigate('/');
         }
+
         const socket = getSocket();
         const playerTurn = localStorage.getItem('playerTurn');
         const turn = localStorage.getItem('turn');

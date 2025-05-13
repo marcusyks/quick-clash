@@ -4,6 +4,7 @@ import useLeaveGameOnExit from '../lib/useLeaveGameOnExit';
 import { useEffect, useState } from 'react';
 import { getSocket, socketConnected } from '../lib/socket';
 import GameBoard from '../components/GameBoard';
+import ChatRoom from '../components/ChatRoom';
 
 function GamePage(){
     const { roomID } = useParams();
@@ -17,7 +18,6 @@ function GamePage(){
         }
 
         const socket = getSocket();
-
 
         // We handle all the overall game states here (end game, start game, force stop game)
         const handleForceStop= () => {
@@ -38,6 +38,7 @@ function GamePage(){
     return(
         <div className='div_gamepage'>
             <GameBoard roomID={roomID}/>
+            <ChatRoom roomID={roomID}/>
             {errorMessage === 'forceStop' && (
                 <div className='div_forceStopMessage'>
                     <p>Opponent left the game, redirecting to homepage...</p>

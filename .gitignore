@@ -25,3 +25,4 @@ yarn-error.log*
 
 #server
 /server/run.sh
+/server/.env.development.local

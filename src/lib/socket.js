@@ -13,6 +13,7 @@ export const getSocket = () => {
     return socket;
 };
 
+
 export const socketConnected = () => {
     if (!socket) {
         return false;
@@ -31,5 +32,11 @@ export const sendGameMessage = (msg, add) => {
     if (msg && add && socket){
         const data = {msg, add}
         socket.emit('gameMessage', data);
+    }
+}
+
+export const sendChatMessage = (chatMsg) => {
+    if (chatMsg && socket){
+        socket.emit('chatMessage', chatMsg);
     }
 }

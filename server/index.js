@@ -4,6 +4,7 @@ const { Server } = require("socket.io");
 const RoomManager = require("./roomManager.js");
 const GameManager = require("./gameManager.js");
 const DataStorage = require("./dataStorage.js");
+const ChatManager = require("./chatManager.js");
 var cors = require("cors");
 const path = require('path');
 require('dotenv').config();
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === 'production'){
 const dataStorage = new DataStorage();
 const roomManager = new RoomManager(dataStorage);
 const gameManager = new GameManager(dataStorage, io);
+const chatManager = new ChatManager(io);
 
 io.on("connection", (socket) => {
   console.log(`User ${socket.id} connected!`);
@@ -49,6 +51,10 @@ io.on("connection", (socket) => {
 
   socket.on("roomMessage", (data) => {
     roomManager.handleRoomMessage(socket, data);
+  });
+
+  socket.on("chatMessage", (data) => {
+    chatManager.handleChatMessage(socket, data);
   });
 
   // Handles disconnection
