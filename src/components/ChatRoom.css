@@ -82,17 +82,16 @@
   padding: 0 10px;
   border-radius: 10px;
   word-wrap: break-word;
+  color: var(--main-text-color);
 }
 
 .me {
   background-color: var(--button-hover-background-color);
-  color: var(--main-text-color);
   border-bottom-right-radius: 0;
 }
 
 .other {
   background-color: var(--button-background-color);
-  color: var(--secondary-text-color);
   border-bottom-left-radius: 0;
 }
 
