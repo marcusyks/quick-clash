@@ -96,7 +96,6 @@ const GameBoard = ({roomID}) => {
 
     return(
         <div className='div_gameboard'>
-
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="modal">
             <div className="modal_wrapper">
                 <DialogPanel>

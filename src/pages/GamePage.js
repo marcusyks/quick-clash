@@ -37,13 +37,13 @@ function GamePage(){
 
     return(
         <div className='div_gamepage'>
-            <GameBoard roomID={roomID}/>
-            <ChatRoom roomID={roomID}/>
             {errorMessage === 'forceStop' && (
                 <div className='div_forceStopMessage'>
                     <p>Opponent left the game, redirecting to homepage...</p>
                 </div>
             )}
+            <GameBoard roomID={roomID}/>
+            <ChatRoom roomID={roomID}/>
         </div>
     )
 }
