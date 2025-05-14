@@ -57,7 +57,7 @@
 }
 
 .div_messages{
-    height:50vh;
+    height: 40vh;
     overflow-y: auto;
     scroll-behavior: smooth;;
     display:flex;
