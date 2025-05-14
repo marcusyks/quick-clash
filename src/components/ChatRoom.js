@@ -1,4 +1,4 @@
-import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Description, Dialog, DialogPanel, DialogTitle, Textarea } from '@headlessui/react'
 import { useEffect, useRef, useState } from "react";
 import { getSocket, sendChatMessage } from '../lib/socket';
 import './ChatRoom.css';
@@ -6,6 +6,7 @@ import chat_icon from '../assets/chat_icon.png';
 import Button from './Button';
 
 const ChatRoom= ({roomID}) => {
+    const isOpenRef = useRef(false);
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [socketID, setSocketID] = useState('');
@@ -15,11 +16,12 @@ const ChatRoom= ({roomID}) => {
         const socket = getSocket();
         if (socketID === ""){setSocketID(socket.id);}
 
-        const handleAddChatMessage = (msg, userID) => {
-            setMessages((prevMessages) => {
-                return [...prevMessages, (userID, msg)];
-            });
-        }
+        const handleAddChatMessage = ({ msg, userID, time }) => {
+            setMessages((prevMessages) => [
+            ...prevMessages,
+            { msg, userID, time }
+            ]);
+        };
 
         socket.on('chatMessage', handleAddChatMessage);
 
@@ -28,15 +30,37 @@ const ChatRoom= ({roomID}) => {
         }
     }, [socketID]);
 
+    // Ref keeps track of isOpen variable
     useEffect(() => {
-        chatRef.current?.scrollIntoView({ behavior: 'auto'});
-    }, [messages, isOpen]);
+        isOpenRef.current = isOpen;
+    }, [isOpen]);
+
+    // checks badge
+    useEffect(() => {
+        const badge = document.querySelector('.chatButton_badge');
+        if (badge) {
+            badge.style.opacity = !isOpenRef.current && messages.length > 0 ? 1 : 0;
+        }
+    }, [messages]);
+
+    // Scroll to the bottom of the chat when a new message is added
+    useEffect(() => {
+        if (isOpen) {
+            requestAnimationFrame(() => {
+                chatRef.current?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+    }, [messages,isOpen]);
 
     const handleChatButton = () => {
+        const badge = document.querySelector('.chatButton_badge');
+        if (badge) {
+            badge.style.opacity = isOpenRef.current ? 1 : 0;
+        }
         setIsOpen(true);
     }
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = () => {
         if (document.querySelector('.chat_inputbox').value !== ''){
             sendChatMessage({
                 roomID: roomID,
@@ -59,6 +83,7 @@ const ChatRoom= ({roomID}) => {
     return(
         <div className='div_chatBoard'>
             <button className='chatButton' onClick={handleChatButton}>
+                <div className='chatButton_badge'/>
                 <img src={chat_icon} alt='chat icon' className='chat_icon'/>
             </button>
 
@@ -73,7 +98,8 @@ const ChatRoom= ({roomID}) => {
                             <div className="div_messages">
                                 {messages.length > 0 ? (
                                     messages.map((message, index) => {
-                                    const isMe = message.userID === socketID;
+                                    const { msg, userID, time } = message;
+                                    const isMe = userID === socketID;
 
                                     return (
                                         <div
@@ -82,9 +108,10 @@ const ChatRoom= ({roomID}) => {
                                         >
                                             <div className={`div_message ${isMe ? "me" : "other"}`}>
                                                 <span className="div_message_userID">
-                                                {isMe ? "Me" : "user" + message.userID}
+                                                    {isMe ? "Me" : "Opponent"}
                                                 </span>
-                                                <p>{message.msg}</p>
+                                                <p>{msg}</p>
+                                                <p className='timestamp'>{time}</p>
                                             </div>
                                         </div>
                                     );
@@ -95,7 +122,12 @@ const ChatRoom= ({roomID}) => {
                                 <div ref={chatRef} />
                             </div>
                             <div className='div_submit'>
-                                <textarea type='text' placeholder='Enter your message...' className='chat_inputbox' onKeyDown={(e) => handleEnter(e)}></textarea>
+                                <Textarea
+                                    className='chat_inputbox'
+                                    rows={3}
+                                    onKeyDown={(e) => handleEnter(e)}
+                                    placeholder='Type your message here...'
+                                />
                                 <Button label='Send' onClick={handleSendMessage}/>
                             </div>
                         </div>
